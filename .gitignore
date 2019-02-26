@@ -1,0 +1,9 @@
+
+.DS_Store*
+*.log
+*.gz
+
+node_modules
+coverage
+!test/fixtures/node_modules
+!test/fixtures/node_modules/@scoped/test/node_modules

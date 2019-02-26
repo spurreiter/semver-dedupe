@@ -1,0 +1,43 @@
+{
+  "name": "npm-semver-dedupe",
+  "version": "1.0.2",
+  "description": "dedupe semver-compatible modules",
+  "keywords": [
+    "dedupe",
+    "git",
+    "npm",
+    "semver"
+  ],
+  "repository": "repo-utils/npm-semver-dedupe",
+  "license": "MIT",
+  "author": {
+    "name": "Jonathan Ong",
+    "email": "me@jongleberry.com",
+    "url": "http://jongleberry.com",
+    "twitter": "https://twitter.com/jongleberry"
+  },
+  "files": [
+    "bin"
+  ],
+  "bin": {
+    "npm-semver-dedupe": "bin/npm-semver-dedupe.js"
+  },
+  "scripts": {
+    "lint": "eslint --fix \"**/*.js\"",
+    "test": "mocha"
+  },
+  "dependencies": {
+    "debug": "4",
+    "rimraf": "2",
+    "semver": "5"
+  },
+  "devDependencies": {
+    "eslint": "^5.14.1",
+    "eslint-config-standard": "^12.0.0",
+    "eslint-plugin-import": "^2.16.0",
+    "eslint-plugin-node": "^8.0.1",
+    "eslint-plugin-promise": "^4.0.1",
+    "eslint-plugin-standard": "^4.0.0",
+    "mocha": "^6.0.2"
+  }
+}
