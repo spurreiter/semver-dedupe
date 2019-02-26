@@ -1,14 +1,9 @@
 const fs = require('fs')
 const path = require('path')
 const semver = require('semver')
+const { flatten } = require('./flatten')
 
 const isScoped = name => name.indexOf('@') === 0
-
-const flatten = (arr = [], depth = 1) =>
-  arr.reduce((a, v) => a.concat(depth > 1 && Array.isArray(v)
-    ? flatten(v, depth - 1)
-    : v
-  ), [])
 
 const parseScoped = pathname => fs.readdirSync(pathname)
   .filter(dots)
