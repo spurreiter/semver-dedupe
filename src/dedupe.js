@@ -1,5 +1,9 @@
 const rimraf = require('rimraf')
 
+/**
+ * strip common pathname
+ * @private
+ */
 const stripPathStart = (pathname, pathStart) => {
   const s = pathname.indexOf(pathStart)
   if (s === 0) {
@@ -8,15 +12,26 @@ const stripPathStart = (pathname, pathStart) => {
   return pathname
 }
 
+/**
+ * Deduplicate modules by deleting from node_modules folder hierarchy
+ * @param {Module} node
+ * @param {Object} args
+ * @param {String} args.pathStart
+ * @param {Boolean} args.dry - dry run; don't actually delete folder(s)
+ * @param {Boolean} args.quiet - no console output
+ * @param {Object} args.names - names for consideration
+ * @param {String[]} [args.anchestors]
+ * @returns {Module[]} deduped modules
+ */
 function dedupe (node, args) {
   const { ancestors = [], pathStart, dry, quiet, names } = args
   const mods = node.modules
-  let deleted = []
+  let deduped = []
 
   for (let i = 0; i < mods.length; i++) {
     const mod = mods[i]
     for (let j = 0; j < ancestors.length; j++) {
-      const doDelete = ancestors[j].modules.some(x => {
+      const doDedupe = ancestors[j].modules.some(x => {
         if (names && !names[mod.name]) return false
         if (x.name !== mod.name) return false
         if (mod.major === 0) {
@@ -26,8 +41,8 @@ function dedupe (node, args) {
           return mod.major === x.major
         }
       })
-      if (doDelete) {
-        deleted.push(mod)
+      if (doDedupe) {
+        deduped.push(mod)
         if (!quiet) {
           console.log('deleting "%s@%s"',
             stripPathStart(mod.pathname, pathStart), mod.version
@@ -49,11 +64,11 @@ function dedupe (node, args) {
         quiet,
         names
       })
-      deleted = deleted.concat(d)
+      deduped = deduped.concat(d)
     }
   })
 
-  return deleted
+  return deduped
 }
 
 module.exports = {
