@@ -18,14 +18,12 @@
   "license": "MIT",
   "author": "spurreiter",
   "files": [
-    "bin"
+    "bin",
+    "src"
   ],
   "main": "src/index.js",
   "bin": {
     "semver-dedupe": "bin/cli.js"
-  },
-  "directories": {
-    "test": "test"
   },
   "scripts": {
     "all": "npm-run-all lint test",
