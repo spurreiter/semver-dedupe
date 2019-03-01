@@ -8,7 +8,7 @@ const cmd = cli()
 if (cmd.help) {
   help()
 } else {
-  main()
+  main(cmd)
 }
 
 function help () {

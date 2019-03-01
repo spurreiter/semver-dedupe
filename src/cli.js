@@ -1,3 +1,4 @@
+const { resolve } = require('path')
 const includes = (arr, comp) => comp.some(val => arr.includes(val))
 
 function cli (argv = process.argv.slice(2)) {
@@ -28,7 +29,7 @@ function cli (argv = process.argv.slice(2)) {
           console.error('--path needs pathname')
           process.exit(1)
         }
-        o.pathStart = arg
+        o.pathStart = resolve(process.cwd(), arg)
         break
       }
       case '--major': {
