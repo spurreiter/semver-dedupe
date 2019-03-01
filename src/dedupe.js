@@ -22,7 +22,7 @@ const stripPathStart = (pathname, pathStart) => {
  * @param {Boolean} args.major - only dedupe matching major versions
  * @param {Boolean} args.minor - only dedupe matching minor versions
  * @param {Object} args.names - names for consideration
- * @param {String[]} [args.anchestors]
+ * @param {Module[]} [args.anchestors=[]] - anchestor modules
  * @returns {Module[]} deduped modules
  */
 function dedupe (node, args) {
