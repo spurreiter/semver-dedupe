@@ -3,7 +3,8 @@
 *.log
 *.gz
 
-node_modules
+/node_modules/
 coverage
 !test/fixtures/node_modules
-!test/fixtures/node_modules/@scoped/test/node_modules
+!test/fixtures/node_modules/**/node_modules
+.nyc_output/

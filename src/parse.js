@@ -38,9 +38,10 @@ function parseScoped (pathname) {
 function parse (pathname) {
   const nodeModules = path.join(pathname, 'node_modules')
   const pkg = require(path.join(pathname, 'package.json'))
-  const name = pkg.name
-  const version = semver.parse(pkg.version)
+  const { name, version } = pkg
+  const { major, minor, patch } = semver(version)
   let modules = []
+
   if (fs.existsSync(nodeModules)) {
     modules = fs.readdirSync(nodeModules).filter(dots).map(name => {
       return !isScoped(name)
@@ -49,15 +50,16 @@ function parse (pathname) {
     }).filter(Boolean)
     modules = flatten(modules)
   }
+
   return {
     linked: fs.lstatSync(pathname).isSymbolicLink(),
-    pathname: pathname,
-    modules: modules,
-    name: name,
-    version: [version.major, version.minor, version.patch].join('.'),
-    major: version.major,
-    minor: version.minor,
-    patch: version.patch
+    name,
+    version,
+    major,
+    minor,
+    patch,
+    pathname,
+    modules
   }
 }
 

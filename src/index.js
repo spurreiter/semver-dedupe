@@ -2,12 +2,10 @@ const { parse } = require('./parse')
 const { dedupe } = require('./dedupe')
 
 function main (args) {
-  const {
-    pathStart
-  } = args
-  const module = parse(pathStart)
-  const deduped = dedupe(module, args)
-  console.log(deduped)
+  const { pathStart } = args
+  const mod = parse(pathStart)
+  const deduped = dedupe(mod, args)
+  return deduped
 }
 
 module.exports = {

@@ -1,3 +1,4 @@
+const semver = require('semver')
 const rimraf = require('rimraf')
 
 /**
@@ -6,10 +7,9 @@ const rimraf = require('rimraf')
  */
 const stripPathStart = (pathname, pathStart) => {
   const s = pathname.indexOf(pathStart)
-  if (s === 0) {
-    return pathname.substring(pathStart.length + 1)
-  }
-  return pathname
+  return (s === 0)
+    ? pathname.substring(pathStart.length + 1)
+    : pathname
 }
 
 /**
@@ -19,27 +19,34 @@ const stripPathStart = (pathname, pathStart) => {
  * @param {String} args.pathStart
  * @param {Boolean} args.dry - dry run; don't actually delete folder(s)
  * @param {Boolean} args.quiet - no console output
+ * @param {Boolean} args.major - only dedupe matching major versions
+ * @param {Boolean} args.minor - only dedupe matching minor versions
  * @param {Object} args.names - names for consideration
  * @param {String[]} [args.anchestors]
  * @returns {Module[]} deduped modules
  */
 function dedupe (node, args) {
-  const { ancestors = [], pathStart, dry, quiet, names } = args
+  const { ancestors = [], pathStart, dry, quiet, major, minor, names } = args
+  const any = !major && !minor && !names
   const mods = node.modules
   let deduped = []
 
   for (let i = 0; i < mods.length; i++) {
     const mod = mods[i]
     for (let j = 0; j < ancestors.length; j++) {
-      const doDedupe = ancestors[j].modules.some(x => {
+      const doDedupe = ancestors[j].modules.some(anc => {
         if (names && !names[mod.name]) return false
-        if (x.name !== mod.name) return false
-        if (mod.major === 0) {
-          // TODO option to compare majors or minors
-          return mod.version === x.version
-        } else {
-          return mod.major === x.major
+        if (anc.name !== mod.name) return false
+
+        if (names) { // dedupe all versions which match range
+          const range = names[mod.name] || '*'
+          return semver.satisfies(mod.version, range)
         }
+        if (any) return true
+        if (major && anc.major === mod.major) return true
+        if (minor && anc.major === mod.major && anc.minor === mod.minor) return true
+
+        return false
       })
       if (doDedupe) {
         deduped.push(mod)
@@ -48,6 +55,7 @@ function dedupe (node, args) {
             stripPathStart(mod.pathname, pathStart), mod.version
           )
         }
+        // istanbul ignore next
         if (!dry) rimraf.sync(mod.pathname)
         mods.splice(i--, 1)
         break
@@ -62,6 +70,8 @@ function dedupe (node, args) {
         pathStart,
         dry,
         quiet,
+        major,
+        minor,
         names
       })
       deduped = deduped.concat(d)
