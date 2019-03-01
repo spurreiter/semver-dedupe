@@ -1,29 +1,28 @@
 {
-  "name": "npm-semver-dedupe",
-  "version": "1.1.0-0",
+  "name": "semver-dedupe",
+  "version": "1.0.0-0",
   "description": "dedupe semver-compatible modules",
   "keywords": [
     "dedupe",
-    "git",
     "npm",
     "semver"
   ],
-  "homepage": "https://github.com/repo-utils/npm-semver-dedupe#readme",
+  "homepage": "https://github.com/spurreiter/semver-dedupe#readme",
   "bugs": {
-    "url": "https://github.com/repo-utils/npm-semver-dedupe/issues"
+    "url": "https://github.com/spurreiter/semver-dedupe/issues"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/repo-utils/npm-semver-dedupe.git"
+    "url": "git+https://github.com/spurreiter/semver-dedupe.git"
   },
   "license": "MIT",
-  "author": "Jonathan Ong <me@jongleberry.com> (http://jongleberry.com)",
+  "author": "spurreiter",
   "files": [
     "bin"
   ],
   "main": "src/index.js",
   "bin": {
-    "npm-semver-dedupe": "bin/cli.js"
+    "semver-dedupe": "bin/cli.js"
   },
   "directories": {
     "test": "test"
