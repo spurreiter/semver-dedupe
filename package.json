@@ -19,6 +19,7 @@
   "author": "spurreiter",
   "files": [
     "bin",
+    "man/*.1",
     "src"
   ],
   "main": "src/index.js",
