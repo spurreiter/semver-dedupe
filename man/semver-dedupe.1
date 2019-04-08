@@ -1,0 +1,102 @@
+.\" generated with Ronn/v0.7.3
+.\" http://github.com/rtomayko/ronn/tree/0.7.3
+.
+.TH "SEMVER\-DEDUPE" "1" "April 2019" "" ""
+.
+.SH "NAME"
+\fBsemver\-dedupe\fR \- dedupe semver\-compatible modules
+.
+.SH "SYNOPSIS"
+.
+.nf
+
+semver\-dedupe [options] [package@range \.\.\.]
+.
+.fi
+.
+.SH "OPTIONS"
+.
+.TP
+\fB\-h\fR, \fB\-\-help\fR
+Display this help and exit\.
+.
+.TP
+\fB\-\-version\fR
+Output version information and exit\.
+.
+.TP
+\fB\-d\fR, \fB\-\-dry\fR
+dry run; don\'t delete modules
+.
+.TP
+\fB\-q\fR, \fB\-\-quiet\fR
+quiet mode; no console\.log
+.
+.TP
+\fB\-p\fR, \fB\-\-path\fR \fB<pathname>\fR
+use pathname instead of cwd to dedupe
+.
+.TP
+\fB\-\-major\fR
+only dedupe by major version
+.
+.TP
+\fB\-\-minor\fR
+only dedupe by minor version
+.
+.TP
+\fBpackage@range\fR
+dedupe \fIpackage\fR by \fIrange\fR; @range is optional
+.
+.SH "EXAMPLE"
+dry\-run to dedupe \fBtest\fR in any version
+.
+.IP "" 4
+.
+.nf
+
+semver\-dedupe \-\-dry test
+.
+.fi
+.
+.IP "" 0
+.
+.P
+dedupe \fBtest\fR where version is in range \fB^2\fR
+.
+.IP "" 4
+.
+.nf
+
+semver\-dedupe test@^2
+.
+.fi
+.
+.IP "" 0
+.
+.P
+dedupe \fBtest\fR where version is in greater \fB2\.0\.0\fR
+.
+.IP "" 4
+.
+.nf
+
+semver\-dedupe "test@>=2\.0\.0"
+.
+.fi
+.
+.IP "" 0
+.
+.P
+dedupe \fBtest\fR and \fB@scoped/test\fR where version is in range \fB^1\fR
+.
+.IP "" 4
+.
+.nf
+
+semver\-dedupe test @scoped/test@^1
+.
+.fi
+.
+.IP "" 0
+

@@ -25,10 +25,12 @@
   "bin": {
     "semver-dedupe": "bin/cli.js"
   },
+  "man": "./man/semver-dedupe.1",
   "scripts": {
     "all": "npm-run-all lint test",
     "coverage": "nyc -r text -r html mocha",
     "lint": "eslint --fix \"**/*.js\"",
+    "man": "ronn -r ./man/semver-dedupe.md",
     "test": "mocha"
   },
   "dependencies": {

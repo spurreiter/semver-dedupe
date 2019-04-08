@@ -5,7 +5,9 @@ const { cli, main } = require('..')
 const prg = 'semver-dedupe'
 
 const cmd = cli()
-if (cmd.help) {
+if (cmd.version) {
+  console.log(cmd.version)
+} else if (cmd.help) {
   help()
 } else {
   main(cmd)
@@ -16,6 +18,7 @@ function help () {
     ${prg} [options] [package@range ...]
 
       --help|-h|-?          this help
+      --version             show version
       --dry|-d              dry run; don't delete modules
       --quiet|-q            quiet mode; no console.log
       --path|-p <pathname>  use pathname instead of cwd to dedupe

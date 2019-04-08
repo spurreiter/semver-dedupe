@@ -37,7 +37,14 @@ function parseScoped (pathname) {
  */
 function parse (pathname) {
   const nodeModules = path.join(pathname, 'node_modules')
-  const pkg = require(path.join(pathname, 'package.json'))
+  const pkgPath = path.join(pathname, 'package.json')
+
+  if (!fs.existsSync(pkgPath)) {
+    // pre-exit if there is no package.json in pathname
+    return
+  }
+
+  const pkg = require(pkgPath)
   const { name, version } = pkg
   const { major, minor, patch } = semver(version)
   let modules = []

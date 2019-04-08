@@ -12,6 +12,10 @@ function cli (argv = process.argv.slice(2)) {
     const arg = argv.shift()
 
     switch (arg) {
+      case '--version': {
+        o.version = require('../package.json').version
+        break
+      }
       case '--dry':
       case '-d': {
         o.dry = true
