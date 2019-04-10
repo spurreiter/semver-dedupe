@@ -34,9 +34,13 @@ function dedupe (node, args) {
   for (let i = 0; i < mods.length; i++) {
     const mod = mods[i]
     for (let j = 0; j < ancestors.length; j++) {
+      let anchestor
+
       const doDedupe = ancestors[j].modules.some(anc => {
         if (names && !names[mod.name]) return false
         if (anc.name !== mod.name) return false
+
+        anchestor = anc
 
         if (names) { // dedupe all versions which match range
           const range = names[mod.name] || '*'
@@ -51,7 +55,10 @@ function dedupe (node, args) {
       if (doDedupe) {
         deduped.push(mod)
         if (!quiet) {
-          console.log('deleting "%s@%s"',
+          console.log('%s: %s@%s <- %s %s@%s',
+            dry ? 'dryrun' : 'delete',
+            anchestor.name, anchestor.version,
+            mod.version,
             stripPathStart(mod.pathname, pathStart), mod.version
           )
         }

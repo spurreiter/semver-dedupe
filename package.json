@@ -1,6 +1,6 @@
 {
   "name": "semver-dedupe",
-  "version": "1.0.3",
+  "version": "1.1.0-0",
   "description": "dedupe semver-compatible modules",
   "keywords": [
     "dedupe",
@@ -32,6 +32,7 @@
     "coverage": "nyc -r text -r html mocha",
     "lint": "eslint --fix \"**/*.js\"",
     "man": "ronn -r ./man/semver-dedupe.md",
+    "prepublishOnly": "npm run all",
     "test": "mocha"
   },
   "dependencies": {
