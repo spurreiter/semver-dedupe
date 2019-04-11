@@ -55,9 +55,13 @@ function dedupe (node, args) {
       if (doDedupe) {
         deduped.push(mod)
         if (!quiet) {
-          console.log('%s: %s@%s <- %s %s@%s',
+          const cmp = semver.compare(anchestor.version, mod.version)
+          const cmpChar = cmp === 0 ? '==' : cmp === 1 ? '>=' : '<='
+
+          console.log('%s: using %s@ %s %s %s - %s@%s',
             dry ? 'dryrun' : 'delete',
             anchestor.name, anchestor.version,
+            cmpChar,
             mod.version,
             stripPathStart(mod.pathname, pathStart), mod.version
           )
