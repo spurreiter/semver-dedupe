@@ -47,7 +47,7 @@ function cli (argv = process.argv.slice(2)) {
       }
       default: {
         if (!o.names) o.names = {}
-        const [ x, name, version = '*' ] = /^(@?[^@]+)(?:@([^@]+)|)/.exec(arg) // eslint-disable-line no-unused-vars
+        const [x, name, version = '*'] = /^(@?[^@]+)(?:@([^@]+)|)/.exec(arg) // eslint-disable-line no-unused-vars
         o.names[name] = version
         break
       }

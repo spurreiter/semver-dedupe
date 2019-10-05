@@ -52,7 +52,7 @@ describe('dedupe', function () {
   })
 
   it('shall dedupe package `test` if in range >= 1.0.1', function () {
-    const names = { 'test': '>=1.0.1' }
+    const names = { test: '>=1.0.1' }
     const res = dedupe(node, { pathStart, names, quiet: true, dry: true })
     assert.deepStrictEqual(mapNameVersion(res), [
       'test@1.0.2',
@@ -65,7 +65,7 @@ describe('dedupe', function () {
   })
 
   it('shall dedupe package `test` if in range ^2', function () {
-    const names = { 'test': '^2.0.0' }
+    const names = { test: '^2.0.0' }
     const res = dedupe(node, { pathStart, names, quiet: true, dry: true })
     assert.deepStrictEqual(mapNameVersion(res), [
       'test@2.0.0',

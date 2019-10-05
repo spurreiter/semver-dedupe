@@ -46,7 +46,7 @@ function parse (pathname) {
 
   const pkg = require(pkgPath)
   const { name, version } = pkg
-  const { major, minor, patch } = semver(version)
+  const { major, minor, patch } = new semver.SemVer(version)
   let modules = []
 
   if (fs.existsSync(nodeModules)) {
